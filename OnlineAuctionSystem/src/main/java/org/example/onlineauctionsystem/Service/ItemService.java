@@ -23,4 +23,14 @@ public class ItemService {
     public Item addItem(Item item) {
         return itemRepository.save(item);
     }
+
+    public Item updateItem(Item itemToUpdate) {
+        // Check if the item exists in the database
+        if (itemToUpdate.getItemid() == null || !itemRepository.existsById(itemToUpdate.getItemid())) {
+            throw new RuntimeException("Item not found");
+        }
+
+        // Save the updated item
+        return itemRepository.save(itemToUpdate);
+    }
 }
