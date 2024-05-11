@@ -21,19 +21,13 @@ public class ItemController {
 
 
 
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Item> getItemById(@PathVariable Long id) {
-//        return itemService.getItemById(id)
-//                .map(item -> new ResponseEntity<>(item, HttpStatus.OK))
-//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
+
     @GetMapping("/getitems")
     public ResponseEntity<List<Item>> getAllItems() {
         List<Item> items = itemService.getAllItems();
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
-    
+
     @PostMapping("/additems")
     Item newItem(@RequestBody Item newItem){return itemRepository.save(newItem);
     }
