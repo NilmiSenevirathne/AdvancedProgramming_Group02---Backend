@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -34,5 +35,19 @@ public class ItemController {
         Item newItem = itemService.addItem(item);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }
+
+    //update current bid price
+    @PutMapping("/updatebid/{id}")
+    public ResponseEntity<Item> updateCurrentBid(@PathVariable Long id, @RequestParam BigDecimal currentBid) {
+        Item itemToUpdate = itemService.getItemById(id).orElse(null);
+        if (itemToUpdate == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        itemToUpdate.setCurrentBid(currentBid);
+        Item updatedItem = itemService.updateItem(itemToUpdate);
+        return new ResponseEntity<>(updatedItem, HttpStatus.OK);
+    }
+
+
 
 }
