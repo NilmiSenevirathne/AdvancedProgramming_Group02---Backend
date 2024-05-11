@@ -59,4 +59,12 @@ public class BidController {
                     .body("Failed to place bid: " + e.getMessage());
         }
     }
+
+    //fetch bid details
+    @GetMapping("/allbids")
+    public ResponseEntity<List<Object[]>> getAllBidsWithItemDetails() {
+        List<Object[]> bidsWithItemDetails = bidService.getAllBidsWithItemDetails();
+        return ResponseEntity.ok(bidsWithItemDetails);
+    }
+
 }
