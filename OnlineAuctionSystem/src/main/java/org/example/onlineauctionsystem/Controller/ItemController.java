@@ -33,6 +33,7 @@ public class ItemController {
         List<Item> items = itemService.getAllItems();
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
+    
     @PostMapping("/additems")
     Item newItem(@RequestBody Item newItem){return itemRepository.save(newItem);
     }
