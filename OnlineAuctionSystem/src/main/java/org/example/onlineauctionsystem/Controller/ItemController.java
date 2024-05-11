@@ -1,6 +1,7 @@
 package org.example.onlineauctionsystem.Controller;
 
 import org.example.onlineauctionsystem.Entity.Item;
+import org.example.onlineauctionsystem.Repository.ItemRepository;
 import org.example.onlineauctionsystem.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,23 +17,25 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
+    private ItemRepository itemRepository;
+
+
     @GetMapping("/getitems")
     public ResponseEntity<List<Item>> getAllItems() {
         List<Item> items = itemService.getAllItems();
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Item> getItemById(@PathVariable Long id) {
-        return itemService.getItemById(id)
-                .map(item -> new ResponseEntity<>(item, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @PostMapping("/additems")
+    Item newItem(@RequestBody Item newItem){return itemRepository.save(newItem);
     }
 
-    @PostMapping("/additem") // Add endpoint mapping for addItem method
-    public ResponseEntity<Item> addItem(@RequestBody Item item) {
-        Item newItem = itemService.addItem(item);
-        return new ResponseEntity<>(newItem, HttpStatus.CREATED);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Item> getItemById(@PathVariable Long id){
+        return itemService.getItemById(id)
+                .map(item -> new ResponseEntity<>(item,HttpStatus.OK))
+                .orElseGet(()->new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }
