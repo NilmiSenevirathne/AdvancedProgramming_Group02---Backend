@@ -33,4 +33,17 @@ public class ItemService {
         item.setCurrentBid(BigDecimal.valueOf(bidAmount));
         itemRepository.save(item);
     }
+<<<<<<< Updated upstream
+=======
+
+    public Item updateItem(Item itemToUpdate) {
+        return itemRepository.save(itemToUpdate);
+    }
+
+    public void deleteItem(Long id) {
+        itemRepository.deleteById(id);
+    }
+
+
+>>>>>>> Stashed changes
 }
