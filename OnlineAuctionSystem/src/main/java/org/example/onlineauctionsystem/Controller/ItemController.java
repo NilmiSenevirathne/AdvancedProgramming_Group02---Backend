@@ -19,11 +19,7 @@ public class ItemController {
 
     private ItemRepository itemRepository;
 
-    @GetMapping("/getitems")
-    public ResponseEntity<List<Item>> getAllItems() {
-        List<Item> items = itemService.getAllItems();
-        return new ResponseEntity<>(items, HttpStatus.OK);
-    }
+
 
 //
 //    @GetMapping("/{id}")
@@ -32,7 +28,11 @@ public class ItemController {
 //                .map(item -> new ResponseEntity<>(item, HttpStatus.OK))
 //                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 //    }
-
+    @GetMapping("/getitems")
+    public ResponseEntity<List<Item>> getAllItems() {
+        List<Item> items = itemService.getAllItems();
+        return new ResponseEntity<>(items, HttpStatus.OK);
+    }
     @PostMapping("/additems")
     Item newItem(@RequestBody Item newItem){return itemRepository.save(newItem);
     }
