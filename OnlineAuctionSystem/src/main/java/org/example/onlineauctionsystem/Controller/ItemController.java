@@ -1,6 +1,7 @@
 package org.example.onlineauctionsystem.Controller;
 
 import org.example.onlineauctionsystem.Entity.Item;
+import org.example.onlineauctionsystem.Repository.ItemRepository;
 import org.example.onlineauctionsystem.Service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,8 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
+    private ItemRepository itemRepository;
+
     @GetMapping("/getitems")
     public ResponseEntity<List<Item>> getAllItems() {
         List<Item> items = itemService.getAllItems();
@@ -29,9 +32,13 @@ public class ItemController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/additem") // Add endpoint mapping for addItem method
-    public ResponseEntity<Item> addItem(@RequestBody Item item) {
-        Item newItem = itemService.addItem(item);
-        return new ResponseEntity<>(newItem, HttpStatus.CREATED);
+//    @PostMapping("/additem") // Add endpoint mapping for addItem method
+//    public ResponseEntity<Item> addItem(@RequestBody Item item) {
+//        Item newItem = itemService.addItem(item);
+//        return new ResponseEntity<>(newItem, HttpStatus.CREATED);
+//    }
+
+    @PostMapping("/additems")
+    Item newItem(@RequestBody Item newItem){return itemRepository.save(newItem);
     }
 }
