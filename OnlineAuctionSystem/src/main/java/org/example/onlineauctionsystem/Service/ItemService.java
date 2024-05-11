@@ -1,13 +1,16 @@
 package org.example.onlineauctionsystem.Service;
 
+import jakarta.transaction.Transactional;
 import org.example.onlineauctionsystem.Entity.Item;
 import org.example.onlineauctionsystem.Repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin(origins = "*")
 @Service
 public class ItemService {
 
@@ -24,13 +27,10 @@ public class ItemService {
         return itemRepository.save(item);
     }
 
-    public Item updateItem(Item itemToUpdate) {
-        // Check if the item exists in the database
-        if (itemToUpdate.getItemid() == null || !itemRepository.existsById(itemToUpdate.getItemid())) {
-            throw new RuntimeException("Item not found");
-        }
-
-        // Save the updated item
-        return itemRepository.save(itemToUpdate);
+    @Transactional
+    public void updateCurrentBidAmount(Long itemId, double bidAmount) {
+        Item item = itemRepository.findById(itemId).orElseThrow(() -> new RuntimeException("Item not found"));
+        item.setCurrentBid(BigDecimal.valueOf(bidAmount));
+        itemRepository.save(item);
     }
 }

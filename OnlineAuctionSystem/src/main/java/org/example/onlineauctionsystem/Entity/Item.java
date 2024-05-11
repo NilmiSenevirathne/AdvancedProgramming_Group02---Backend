@@ -76,6 +76,4 @@ public class Item {
     public void setImageData(byte[] imageData) {
         this.imageData = imageData;
     }
-
-
 }
