@@ -2,6 +2,7 @@ package org.example.onlineauctionsystem.Service;
 
 import jakarta.transaction.Transactional;
 import org.example.onlineauctionsystem.Entity.Item;
+import org.example.onlineauctionsystem.Repository.BidRepository;
 import org.example.onlineauctionsystem.Repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public class ItemService {
 
     @Autowired
     private ItemRepository itemRepository;
+
+
 
     public List<Item> getAllItems(){
         return itemRepository.findAll();
@@ -33,4 +36,12 @@ public class ItemService {
         item.setCurrentBid(BigDecimal.valueOf(bidAmount));
         itemRepository.save(item);
     }
+
+    @Transactional
+    public Item updateItem(Item itemToUpdate) {
+        return itemRepository.save(itemToUpdate);
+    }
+
+
+
 }
