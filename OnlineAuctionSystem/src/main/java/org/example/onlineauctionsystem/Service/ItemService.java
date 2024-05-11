@@ -33,4 +33,16 @@ public class ItemService {
         item.setCurrentBid(BigDecimal.valueOf(bidAmount));
         itemRepository.save(item);
     }
+
+    @Transactional
+    public Item updateItem(Item itemToUpdate) {
+        return itemRepository.save(itemToUpdate);
+    }
+
+    @Transactional
+    public void deleteItem(Long id) {
+        itemRepository.deleteById(id);
+    }
+
+
 }
