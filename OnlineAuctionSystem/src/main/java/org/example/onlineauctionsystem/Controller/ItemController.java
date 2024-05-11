@@ -26,22 +26,23 @@ public class ItemController {
     }
 
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Item> getItemById(@PathVariable Long id) {
-//        return itemService.getItemById(id)
-//                .map(item -> new ResponseEntity<>(item, HttpStatus.OK))
-//                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Item> getItemById(@PathVariable Long id) {
+        return itemService.getItemById(id)
+                .map(item -> new ResponseEntity<>(item, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     @PostMapping("/additems")
     Item newItem(@RequestBody Item newItem){return itemRepository.save(newItem);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Item> getItemById(@PathVariable Long id){
-        return itemService.getItemById(id)
-                .map(item -> new ResponseEntity<>(item,HttpStatus.OK))
-                .orElseGet(()->new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+//    
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Item> getItemById(@PathVariable Long id){
+//        return itemService.getItemById(id)
+//                .map(item -> new ResponseEntity<>(item,HttpStatus.OK))
+//                .orElseGet(()->new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//    }
 
 }
