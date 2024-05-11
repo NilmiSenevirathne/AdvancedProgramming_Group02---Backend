@@ -37,7 +37,7 @@ public class ItemController {
     Item newItem(@RequestBody Item newItem){return itemRepository.save(newItem);
     }
 
-//    
+//
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Item> getItemById(@PathVariable Long id){
 //        return itemService.getItemById(id)
