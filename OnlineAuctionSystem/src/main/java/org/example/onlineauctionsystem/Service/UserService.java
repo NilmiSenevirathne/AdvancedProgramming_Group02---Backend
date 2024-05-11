@@ -46,4 +46,8 @@ public class UserService {
     public User updateUser(User user) {
         return userRepository.save(user);
     }
+
+    public boolean checkEmailExists(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }

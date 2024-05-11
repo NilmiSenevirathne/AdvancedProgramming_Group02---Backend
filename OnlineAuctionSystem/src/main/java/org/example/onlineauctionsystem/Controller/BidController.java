@@ -44,8 +44,21 @@ public class BidController {
                 return ResponseEntity.badRequest().body("User ID and Item ID are required.");
             }
 
+            Thread updateBidThread=new Thread(() ->{
+                try {
+                    // Synchronize access to the method to ensure thread safety
+                    synchronized (this) {
+                        itemService.updateCurrentBidAmount(itemId, bid.getBidAmount());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            updateBidThread.start(); // Start the thread
+
+
             // Update current bid amount in the item table
-            itemService.updateCurrentBidAmount(itemId, bid.getBidAmount());
+           // itemService.updateCurrentBidAmount(itemId, bid.getBidAmount());
 
             // Set bid time
             bid.setBidTime(LocalDateTime.now());
