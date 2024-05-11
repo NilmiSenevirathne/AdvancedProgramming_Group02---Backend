@@ -20,8 +20,6 @@ public class ItemController {
     private ItemRepository itemRepository;
 
 
-
-
     @GetMapping("/getitems")
     public ResponseEntity<List<Item>> getAllItems() {
         List<Item> items = itemService.getAllItems();
