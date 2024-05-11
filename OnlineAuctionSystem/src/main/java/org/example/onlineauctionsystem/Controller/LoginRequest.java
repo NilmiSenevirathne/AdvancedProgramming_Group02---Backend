@@ -1,5 +1,8 @@
 package org.example.onlineauctionsystem.Controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
+@CrossOrigin(origins = "*")
 public class LoginRequest {
     private String username;
     private String password;
