@@ -44,6 +44,7 @@ public class ItemController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+
     //update item details
     @PutMapping("/updateitems/{id}")
     public ResponseEntity<Item> updateItemDetails(@PathVariable Long id, @RequestBody Item updatedItemDetails) {
@@ -65,16 +66,23 @@ public class ItemController {
     }
 
     //delete item
-    @DeleteMapping("/deleteitem/{id}")
-    public ResponseEntity<String> deleteItem(@PathVariable Long id) {
-        Optional<Item> optionalItem = itemService.getItemById(id);
-        if (optionalItem.isPresent()) {
-            itemService.deleteItem(id);
-            return ResponseEntity.ok("Item deleted successfully");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @DeleteMapping("/deleteitem/{id}")
+//    public ResponseEntity<String> deleteItem(@PathVariable Long id) {
+//        Optional<Item> optionalItem = itemService.getItemById(id);
+//        if (optionalItem.isPresent()) {
+//            try {
+//                // Check if there are any bids associated with this item, if yes, handle them accordingly
+//                itemService.deleteItem(id);
+//                return ResponseEntity.ok("Item deleted successfully");
+//            } catch (Exception e) {
+//                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                        .body("Error deleting item: " + e.getMessage());
+//            }
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
 
 
 }
