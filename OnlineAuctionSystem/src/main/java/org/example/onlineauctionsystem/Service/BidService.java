@@ -85,7 +85,7 @@ public class BidService {
     public List<Object[]> getBidsWithItemDetailsByUserId(Long userId) {
         return bidRepository.findBidsWithItemDetailsByUserId(userId);
     }
-    }
+}
 
 
 
