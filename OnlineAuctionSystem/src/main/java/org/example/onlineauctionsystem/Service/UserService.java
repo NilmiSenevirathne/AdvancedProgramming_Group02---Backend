@@ -50,4 +50,19 @@ public class UserService {
     public boolean checkEmailExists(String email) {
         return userRepository.existsByEmail(email);
     }
+
+    public User updateUser(Long userId, User updatedUserData) {
+        // Implement update logic
+        User userToUpdate = userRepository.findById(userId).orElse(null);
+        if (userToUpdate != null) {
+            // Update user properties with updatedUserData
+            userToUpdate.setUsername(updatedUserData.getUsername());
+            userToUpdate.setEmail(updatedUserData.getEmail());
+            userToUpdate.setRole(updatedUserData.getRole());
+            // Save the updated user
+            return userRepository.save(userToUpdate);
+        } else {
+            return null;
+        }
+    }
 }
