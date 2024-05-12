@@ -30,30 +30,8 @@ public class BidService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private ItemService itemService;
 
-//    public Bid placeBid(Long itemId, Long userId, double bidAmount) {
-//        // Retrieve item and user from database
-//        Optional<Item> optionalItem = itemRepository.findById(itemId);
-//        Optional<User> optionalUser = userRepository.findById(userId);
-//
-//        if (optionalItem.isEmpty()) {
-//            throw new EntityNotFoundException("Item not found");
-//        }
-//        if (optionalUser.isEmpty()) {
-//            throw new EntityNotFoundException("User not found");
-//        }
-//
-//        Item item = optionalItem.get();
-//        User user = optionalUser.get();
-//
-//        // Create a new bid
-//        Bid bid = new Bid();
-//        bid.setItem(item);
-//        bid.setUser(user);
-//        bid.setBidAmount(bidAmount);
-//        bid.setBidTime(LocalDateTime.now());
+
 
     @Transactional
     public Bid placeBid(Bid bid, Long userId) {
@@ -84,6 +62,10 @@ public class BidService {
     @Transactional
     public List<Object[]> getBidsWithItemDetailsByUserId(Long userId) {
         return bidRepository.findBidsWithItemDetailsByUserId(userId);
+    }
+
+    public List<Object[]> findAllBidsWithItemDetails() {
+        return bidRepository.findAllBidsWithItemDetails();
     }
 }
 

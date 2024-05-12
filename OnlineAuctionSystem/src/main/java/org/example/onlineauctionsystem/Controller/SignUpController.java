@@ -1,6 +1,7 @@
 package org.example.onlineauctionsystem.Controller;
 
 import org.example.onlineauctionsystem.Entity.User;
+import org.example.onlineauctionsystem.Repository.UserRepository;
 import org.example.onlineauctionsystem.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ public class SignUpController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
     @PostMapping("/signup")
     public ResponseEntity<User> signUp(@RequestBody User user) {
         User newUser = userService.signUp(user);
@@ -59,6 +62,19 @@ public class SignUpController {
     public ResponseEntity<Boolean> checkEmailExists(@RequestParam String email) {
         boolean exists = userService.checkEmailExists(email);
         return ResponseEntity.ok(exists);
+    }
+
+    @PostMapping("/adduser")
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        User addedUser = userRepository.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedUser);
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User updatedUserData) {
+        // Implement update logic in userService
+        User updatedUser = userService.updateUser(userId, updatedUserData);
+        return ResponseEntity.ok(updatedUser);
     }
 
 
