@@ -43,7 +43,7 @@ public class BidController {
             if (userId == null || itemId == null) {
                 return ResponseEntity.badRequest().body("User ID and Item ID are required.");
             }
-
+            // Start a new thread to update the current bid amount asynchronously
             Thread updateBidThread=new Thread(() ->{
                 try {
                     // Synchronize access to the method to ensure thread safety
@@ -56,10 +56,6 @@ public class BidController {
             });
             updateBidThread.start(); // Start the thread
 
-
-            // Update current bid amount in the item table
-           // itemService.updateCurrentBidAmount(itemId, bid.getBidAmount());
-
             // Set bid time
             bid.setBidTime(LocalDateTime.now());
 
@@ -71,5 +67,11 @@ public class BidController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to place bid: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/allbids")
+    public ResponseEntity<List<Object[]>> getAllBidsWithItemDetails() {
+        List<Object[]> bidsWithItemDetails = bidService.findAllBidsWithItemDetails();
+        return ResponseEntity.ok(bidsWithItemDetails);
     }
 }
